@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: linear-gradient(180deg, #ffffff 0%, #f5f3ff 50%, #ffffff 100%);
+  background-attachment: fixed;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+  }
+
+  .mask-fade-dots {
+    -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 35%, black 25%, transparent 75%);
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 35%, black 25%, transparent 75%);
+  }
+
+  .hero-slide {
+    opacity: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: opacity, transform;
+  }
+
+  .hero-shade {
+    background-image: linear-gradient(
+      180deg,
+      rgba(5, 6, 10, 0.72) 0%,
+      rgba(10, 9, 24, 0.45) 22%,
+      rgba(16, 13, 36, 0.6) 45%,
+      rgba(23, 18, 51, 0.5) 68%,
+      rgba(42, 32, 80, 0.58) 86%,
+      rgba(255, 255, 255, 0.97) 97%,
+      #ffffff 100%
+    );
+  }
+
+  .bg-dots-light {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+  }
+
+  .animate-orbit {
+    animation: orbit 9s linear infinite;
+  }
+
+  .animate-orbit-reverse {
+    animation: orbit 14s linear infinite reverse;
+  }
+
+  .animate-float {
+    animation: float 9s ease-in-out infinite;
+  }
+
+  .animate-float-slow {
+    animation: float 14s ease-in-out infinite;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-glowPurple transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(139,92,246,0.6)];
+  }
+
+  .btn-green {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-secondary bg-white/70 px-7 py-3.5 text-sm font-semibold text-secondary transition-all duration-300 hover:scale-105 hover:bg-secondary/5 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)];
+  }
+
+  .btn-green-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-secondary/70 bg-white/5 px-7 py-3.5 text-sm font-semibold text-secondary backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-secondary/10 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)];
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .animate-orbit,
+  .animate-orbit-reverse,
+  .animate-float,
+  .animate-float-slow {
+    animation: none;
+  }
+
+  .hero-slide {
+    animation: none !important;
+  }
+
+  .hero-slide:first-child {
+    opacity: 1 !important;
+  }
+}
